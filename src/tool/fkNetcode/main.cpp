@@ -161,21 +161,25 @@ BOOL WINAPI DllMain(HMODULE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 		case DLL_PROCESS_ATTACH:
 		{
 			PEInfo pe;
-			int version = fk::getGameVersion(pe.FH->TimeDateStamp);
-			if (version == fk::GAME_VERSION_NONE)
-			{
-				MessageBox(NULL, "fkNetcode is incompatible with your game version. Please run the 1.05 patch or 1.07 "
-					"release of Worms 2. Otherwise, you can delete the module to remove this warning.", "fkNetcode",
-					MB_ICONWARNING);
-			}
-			else
-			{
-				configure();
-				patch(pe, version);
+			int tds = pe.FH->TimeDateStamp;
+			int tds_LAN = 891361445;
+			if (tds != tds_LAN) {
+				int version = fk::getGameVersion(tds);
+				if (version == fk::GAME_VERSION_NONE)
+				{
+					MessageBox(NULL, "fkNetcode is incompatible with your game version. Please run the 1.05 patch or 1.07 "
+						"release of Worms 2. Otherwise, you can delete the module to remove this warning.", "fkNetcode",
+						MB_ICONWARNING);
+				}
+				else
+				{
+					configure();
+					patch(pe, version);
+				}
 			}
 		}
 		break;
-
+	
 		case DLL_PROCESS_DETACH:
 			break;
 	}
