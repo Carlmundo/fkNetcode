@@ -165,7 +165,11 @@ BOOL WINAPI DllMain(HMODULE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 			int version = fk::getGameVersion(tds);
 			if (version == fk::GAME_VERSION_NONE){
 				int tds_LAN = 891361445;
-				if (tds != tds_LAN){
+				if (tds == tds_LAN){
+					MessageBox(NULL, "Don't press the OK button until the host has done it first.\nIf you are the host, press it now.", "LAN Party",
+						MB_ICONWARNING);
+				}
+				else {
 					MessageBox(NULL, "fkNetcode is incompatible with your game version. Please run the 1.05 patch or 1.07 "
 						"release of Worms 2. Otherwise, you can delete the module to remove this warning.", "fkNetcode",
 						MB_ICONWARNING);
