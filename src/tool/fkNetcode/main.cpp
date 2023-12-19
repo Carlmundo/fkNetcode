@@ -66,7 +66,7 @@ bool resolveIPExternal(LPSTR buffer)
 			{
 				if (responseLength >= 8)
 				{
-					response[responseLength] = '\0';
+					//response[responseLength] = '\0';
 					BYTE temp;
 					if (sscanf_s(response, "%hhu.%hhu.%hhu.%hhu", &temp, &temp, &temp, &temp) == 4)
 						lstrcpy(buffer, response);
