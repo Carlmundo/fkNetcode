@@ -61,12 +61,12 @@ bool resolveIPExternal(LPSTR buffer)
 			INTERNET_FLAG_NO_COOKIES | INTERNET_FLAG_NO_CACHE_WRITE | INTERNET_FLAG_RELOAD, NULL))
 		{
 			DWORD responseLength = 0;
-			CHAR response[16];
-			if (InternetReadFile(hFile, response, 16, &responseLength))
+			CHAR response[20];
+			if (InternetReadFile(hFile, response, sizeof(response) - 1, &responseLength))
 			{
 				if (responseLength >= 8)
 				{
-					//response[responseLength] = '\0';
+					response[responseLength] = '\0';
 					BYTE temp;
 					if (sscanf_s(response, "%hhu.%hhu.%hhu.%hhu", &temp, &temp, &temp, &temp) == 4)
 						lstrcpy(buffer, response);
