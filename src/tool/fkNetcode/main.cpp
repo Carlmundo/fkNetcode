@@ -182,11 +182,7 @@ BOOL WINAPI DllMain(HMODULE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 						break;
 					}
 				}
-				if (isLAN){
-					MessageBox(NULL, "Don't press the OK button until the host has done it first.\nIf you are the host, press it now.", "Worms 2 LAN",
-						MB_ICONWARNING);
-				}
-				else {
+				if (!isLAN){
 					MessageBox(NULL, "fkNetcode is incompatible with your game version. Please run the 1.05 patch or 1.07 "
 						"release of Worms 2. Otherwise, you can delete the module to remove this warning.", "fkNetcode",
 						MB_ICONWARNING);
