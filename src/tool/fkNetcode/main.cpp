@@ -164,29 +164,9 @@ BOOL WINAPI DllMain(HMODULE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 			int tds = pe.FH->TimeDateStamp;
 			int version = fk::getGameVersion(tds);
 			if (version == fk::GAME_VERSION_NONE){
-				int tdsGame[9] = {
-					891361445, //English, Polish
-					891361516, //Dutch
-					891361533, //French
-					891361487, //German
-					891361495, //Italian
-					891361468, //Portuguese (Brazil)
-					891361505, //Spanish
-					891361477, //Spanish (Latin America)
-					891361525  //Swedish
-				};
-				bool isLAN = false;
-				for (int i = 0; i < 9; i++) {
-					if (tdsGame[i] == tds) {
-						isLAN = true;
-						break;
-					}
-				}
-				if (!isLAN){
-					MessageBox(NULL, "fkNetcode is incompatible with your game version. Please run the 1.05 patch or 1.07 "
-						"release of Worms 2. Otherwise, you can delete the module to remove this warning.", "fkNetcode",
-						MB_ICONWARNING);
-				}
+				MessageBox(NULL, "fkNetcode is incompatible with your game version. Please run the 1.05 patch or 1.07 "
+					"release of Worms 2. Otherwise, you can delete the module to remove this warning.", "fkNetcode",
+					MB_ICONWARNING);
 			}
 			else
 			{
