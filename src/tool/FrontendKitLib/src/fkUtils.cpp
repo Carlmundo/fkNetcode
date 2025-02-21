@@ -8,6 +8,7 @@ namespace fk
 	{
 		switch (timeDateStamp)
 		{
+			case 0x34EB17E4: return GAME_VERSION_DEMO;
 			case 0x3528DAFA: return GAME_VERSION_BR;
 			case 0x3528DCB1: return GAME_VERSION_EN;
 			case 0x3528DB52: return GAME_VERSION_GE;

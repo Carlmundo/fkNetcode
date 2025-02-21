@@ -136,20 +136,9 @@ bool __stdcall patchResolveIP(LPSTR buffer, int bufferLength)
 
 void patch(PEInfo& pe, int gameVersion)
 {
-	fk::Patch::jump(pe.Offset(0x00001799), 5, &patchResolveIP, fk::IJ_JUMP); // replace IP resolve with web service
-
-	if (gameVersion == fk::GAME_VERSION_TRY)
-	{
-		fk::Patch::nops(pe.Offset(0x00053B96), 5); // prevent overriding IP with user name
-		fk::Patch::nops(pe.Offset(0x00054693), 5); // prevent overriding IP with NAT IP
-		fk::Patch::nops(pe.Offset(0x00054635), 11); // useless sleep when connecting to server
-	}
-	else
-	{
-		fk::Patch::nops(pe.Offset(0x00053E96), 5); // prevent overriding IP with user name
-		fk::Patch::nops(pe.Offset(0x00054935), 11); // useless sleep when connecting to server
-		fk::Patch::nops(pe.Offset(0x00054993), 5); // prevent overriding IP with NAT IP
-	}
+	fk::Patch::jump(pe.Offset(0x00001654), 5, &patchResolveIP, fk::IJ_JUMP); // replace IP resolve with web service
+	fk::Patch::nops(pe.Offset(0x0003EBD9), 5); // prevent overriding IP with NAT IP
+	fk::Patch::nops(pe.Offset(0x0003E843), 4); // prevent overriding IP with user name
 }
 
 // ---- Main ----
@@ -163,15 +152,12 @@ BOOL WINAPI DllMain(HMODULE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 			PEInfo pe;
 			int tds = pe.FH->TimeDateStamp;
 			int version = fk::getGameVersion(tds);
-			if (version == fk::GAME_VERSION_NONE){
-				MessageBox(NULL, "fkNetcode is incompatible with your game version. Please run the 1.05 patch or 1.07 "
-					"release of Worms 2. Otherwise, you can delete the module to remove this warning.", "fkNetcode",
-					MB_ICONWARNING);
-			}
-			else
-			{
+			if (version == fk::GAME_VERSION_DEMO){
 				configure();
 				patch(pe, version);
+			}
+			else {
+				MessageBox(NULL, "This version of fkNetcode is only compatible with the online demo.", "fkNetcode", MB_ICONWARNING);
 			}
 		}
 		break;

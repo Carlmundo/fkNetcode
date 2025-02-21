@@ -12,7 +12,8 @@ namespace fk
 		GAME_VERSION_GE, // 1.05
 		GAME_VERSION_NA, // 1.05
 		GAME_VERSION_SA, // 1.05
-		GAME_VERSION_TRY // 1.07 Trymedia
+		GAME_VERSION_TRY, // 1.07 Trymedia
+		GAME_VERSION_DEMO
 	};
 
 	int getGameVersion(DWORD timeDateStamp);
