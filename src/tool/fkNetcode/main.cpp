@@ -120,6 +120,9 @@ bool resolveIPOriginal(LPSTR buffer)
 
 bool __stdcall patchResolveIP(LPSTR buffer, int bufferLength)
 {
+	if (buffer[0] != 0)
+		return false;
+
 	// Return value not used by W2, but meant to be 0 if no error.
 	if (resolveIPCached(buffer) || resolveIPExternal(buffer) || resolveIPFallback(buffer) || resolveIPOriginal(buffer))
 	{
